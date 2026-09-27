@@ -1,0 +1,69 @@
+# Smart Parking System in Python
+
+total_slots = 5
+parked_cars = {}
+
+while True:
+    print("\n===== SMART PARKING SYSTEM =====")
+    print("1. Park Vehicle")
+    print("2. Remove Vehicle")
+    print("3. Show Parking Status")
+    print("4. Search Vehicle")
+    print("5. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        if len(parked_cars) < total_slots:
+            vehicle = input("Enter vehicle number: ")
+
+            if vehicle in parked_cars:
+                print("Vehicle is already parked.")
+            else:
+                slot = 1
+                while slot in parked_cars.values():
+                    slot += 1
+
+                parked_cars[vehicle] = slot
+                print("Vehicle parked successfully!")
+                print("Parking Slot:", slot)
+        else:
+            print("Parking is FULL!")
+
+    elif choice == 2:
+        vehicle = input("Enter vehicle number: ")
+
+        if vehicle in parked_cars:
+            slot = parked_cars.pop(vehicle)
+            print("Vehicle removed successfully.")
+            print("Freed Slot:", slot)
+        else:
+            print("Vehicle not found.")
+
+    elif choice == 3:
+        print("\n--- PARKING STATUS ---")
+        print("Total Slots:", total_slots)
+        print("Occupied Slots:", len(parked_cars))
+        print("Available Slots:", total_slots - len(parked_cars))
+
+        if parked_cars:
+            for vehicle, slot in parked_cars.items():
+                print("Vehicle:", vehicle, "-> Slot:", slot)
+        else:
+            print("All slots are available.")
+
+    elif choice == 4:
+        vehicle = input("Enter vehicle number: ")
+
+        if vehicle in parked_cars:
+            print("Vehicle Found!")
+            print("Parking Slot:", parked_cars[vehicle])
+        else:
+            print("Vehicle not found.")
+
+    elif choice == 5:
+        print("Smart Parking System Closed.")
+        break
+
+    else:
+        print("Invalid choice!")
